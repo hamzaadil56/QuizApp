@@ -190,6 +190,5 @@ function start(){
 
 
 startButton.addEventListener('click',start)
-// on submit, show results
 submitButton.addEventListener('click', showResults);
 nextButton.addEventListener('click',next)
