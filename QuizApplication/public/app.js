@@ -51,20 +51,16 @@ let myQuestions = [{
 
 
 function buildQuiz(){
-  // variable to store the HTML output
+  
   const output = [];
   let heading = quizContainer.innerHTML = `<h1 id ="heading"><b>Quiz App</b></h1>`
   output.push(heading)
-  // for each question...
   myQuestions.forEach(
     (currentQuestion, questionNumber) => {
 
-      // variable to store the list of possible answers
       const answers = [];
 
-      // and for each available answer...
       for(letter in currentQuestion.answers){
-        // ...add an HTML radio button
         answers.push(
           `<label>
             <input type="radio" name="question${questionNumber}" value="${letter}">
@@ -74,7 +70,6 @@ function buildQuiz(){
         );
       }
 
-      // add this question and its answers to the output
       output.push(
         
         `<div class="question${questionNumber}"> ${currentQuestion.question}<div class="answers"> ${answers.join('')} </div> </div>
@@ -84,45 +79,32 @@ function buildQuiz(){
   );
 
   
-  // finally combine our output list into one string of HTML and put it on the page  
 
   quizContainer.innerHTML = output.join('');
   nextButton.disabled = true
 }
 function showResults(){
- // gather answer containers from our quiz
  const answerContainers = quizContainer.querySelectorAll('.answers');
-// console.log(answerContainers)
- // keep track of user's answers
  let numCorrect = 0;
 
- // for each question...
  myQuestions.forEach( (currentQuestion, questionNumber) => {
 
-   // find selected answer
    const answerContainer = answerContainers[questionNumber];
    
-  //  console.log(answerContainer)
    const selector = `input[name=question${questionNumber}]:checked`;
   
    const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
-   // if answer is correct
    if(userAnswer === currentQuestion.correctAnswer){
-     // add to the number of correct answers
      numCorrect++;
 
-     // color the answers green
      answerContainers[questionNumber].style.color = 'darkgreen';
    }
-   // if answer is wrong or blank
    else{
-     // color the answers red
      answerContainers[questionNumber].style.color = 'red';
    }
  });
 
- // show number of correct answers out of total
  resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
  resultsContainer.style.color = "white"
  resultsContainer.style.fontSize = "30px"
@@ -136,7 +118,6 @@ clearInterval(interval)
 
 
   
-// display quiz right away
 buildQuiz();
 alert(" Press the start button to start the quiz and you have 15 seconds to complete the quiz!")
 
